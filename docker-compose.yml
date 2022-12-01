@@ -1,0 +1,29 @@
+version: "3.8"
+
+networks:
+  php_advanced:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0.31
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - php_advanced
+    ports:
+      - "3306:3306"
+
+  php:
+#    image: "php:8.1-apache"
+    build:
+      context: .docker/php
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - php_advanced
