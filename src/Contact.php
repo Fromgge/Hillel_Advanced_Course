@@ -1,7 +1,5 @@
 <?php
 
-namespace Hillel\Src;
-
 class Contact {
     private $name;
     private $surname;
@@ -19,45 +17,42 @@ class Contact {
     }
 }
 
-class ContactBuilder {
+class ContactBuilder
+{
     public $name;
     public $surname;
     public $email;
     public $phone;
     public $address;
 
-//    public function __construct($name, $surname, $email, $phone, $address)
-//    {
-//        $this->name = $name;
-//        $this->surname = $surname;
-//        $this->email = $email;
-//        $this->phone = $phone;
-//        $this->address = $address;
-//    }
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    public function addSurname($surname)
-    {
-        $this->surname = $surname;
-    }
-
-    public function addEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function addPhone($phone)
+    public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
-    public function addAddress($address)
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setSurName($surname)
+    {
+        $this->surname = $surname;
+        return $this;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
     }
 
     public function build(): Contact
@@ -66,3 +61,14 @@ class ContactBuilder {
     }
 }
 
+$contact = new ContactBuilder();
+
+$newContact = $contact->setPhone('000-555-000')
+    ->setName("John")
+    ->setSurname("Surname")
+    ->setEmail("john@email.com")
+    ->setAddress("Some address")
+    ->build();
+echo '<pre>';
+var_dump($newContact);
+echo '</pre>';
